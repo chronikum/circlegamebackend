@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { env } from 'process';
+import DatabaseManager from './dbclient';
 
 const basicRoutes = require('./routes/basicRoutes.routes');
 require('dotenv').config();
@@ -8,6 +9,8 @@ require('dotenv').config();
 export default class Server {
 
 	app: express.Application;
+	
+	databaseManager = DatabaseManager.instance
 
 	private port = process.env.PORT || 8080;
 
@@ -33,9 +36,24 @@ export default class Server {
 			next();
 		});
 		this.initializeRoutes();
+		this.connectDatabase();
 		this.listen()
 	}
 
+	/**
+	 * Connects to database and wait until its ready
+	 */
+	 connectDatabase() {
+		this.databaseManager.prepare();
+		this.databaseManager.databaseReady.subscribe(ready => {
+			if (ready) {
+				console.log("Database is ready!")
+			} else {
+				console.log("Database is not available yet")
+			}
+		})
+	}
+	
 	/**
 	 * Loads the routes
 	 */
@@ -48,6 +66,10 @@ export default class Server {
 
 
 	private listen() {
+		this.app.use((err, req, res, next) => {
+			console.error(err.stack)
+			res.status(500).send('FUCK! Something broke!')
+		})
 		this.app.use((req, res, next) => {
 			res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Cache-Control, Key, Access-Control-Allow-Origin');
 			next();
@@ -56,6 +78,8 @@ export default class Server {
 			console.log("Server listening on port " + this.port);
 		});
 	}
+
+	
 }
 
 let server = new Server()
