@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { env } from 'process';
 import DatabaseManager from './dbclient';
+import helmet from 'helmet';
 
 const basicRoutes = require('./routes/basicRoutes.routes');
 require('dotenv').config();
@@ -27,6 +28,9 @@ export default class Server {
 	start() {
 		console.log("Server started");
 		this.app = express();
+		this.app.use(helmet({
+			contentSecurityPolicy: false,
+		  }));
 		this.app.use(bodyParser.json());
 		// Add headers before the routes are defined
 		this.app.use(function (req, res, next) {
