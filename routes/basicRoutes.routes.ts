@@ -1,3 +1,4 @@
+import { EloModel } from "../models/Elo.model";
 import { HighscoreInterface, HighscoreModel } from "../models/Highscore.model";
 
 const express = require('express');
@@ -10,34 +11,24 @@ router.get('/', async (req, res) => {
 
 router.post('/sethighscore', async (req, res) => {
 	const { user } = req.body;
-	const { highscore } = req.body;
+	const { elo } = req.body;
+	const findEloPlayer = await HighscoreModel.findOne({ user })
 
-	if (user && highscore)
+	if (findEloPlayer)
 	{
-		let currentHighscore = await HighscoreModel.findOne({ user }) as unknown as HighscoreInterface;
-		// highscore exists and maybe needs an update
-		if (currentHighscore)
-		{
-			if (currentHighscore.highscore >= highscore) // highscore is not higher than saved score
-			{
-				return res.send({success: false, message: "Highscore is not higher than current highscore"});
-			}
-			else // update existing entry with highscore
-			{
-				const updated = await HighscoreModel.updateOne({ user: user }, {
-					highscore: highscore
-				}).exec();
-				return res.send( {success: true, message: "Highscore updated!"} )
-			}
-		}
-		else
-		{
-			const createNewHighscore = HighscoreModel.create({
-				user: user,
-				highscore: highscore
-			})
-		}
-		return res.send( {success: true, message: "Highscore added!"} )
+		const updated = await HighscoreModel.updateOne({ user: user }, {
+			elo: elo
+		}).exec();
+		return res.send( {success: true, message: "Elo set!"} )
+	}
+	else
+	{
+		const result = await HighscoreModel.create({
+			user: user,
+			elo: elo
+		})
+		console.log(result)
+		return res.send( {success: true, message: "Elo created!"} )
 	}
 	return res.send( {success: false, message: "JSON body incorrect!"} )
 });
@@ -47,7 +38,7 @@ router.post('/sethighscore', async (req, res) => {
  */
 router.post('/highscore', async (req, res) => {
 	let getHighscores = await HighscoreModel.find({}) as unknown as HighscoreInterface[];
-	getHighscores.sort((a, b) => b.highscore - a.highscore);
+	getHighscores.sort((a, b) => (b.elo?.rank * 100 + b.elo?.points) - (a.elo?.rank * 100 + a.elo?.points));
 	return res.send( {success: true, highscores: getHighscores} )
 });
 

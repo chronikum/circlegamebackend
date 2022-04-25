@@ -1,18 +1,19 @@
 import mongoose, { Schema } from 'mongoose';
+import { EloInterface, EloModel, eloSchema } from './Elo.model';
 
 /**
  * Define highscore schema, highscore model and highscore interface
  */
-
-
 const highscoreSchema = new Schema({
     user: String,
-    highscore: Number,
+	pin: String,
+    elo: eloSchema,
 });
 
 export interface HighscoreInterface {
 	user: string,
-	highscore: number
+	pin: string,
+	elo: EloInterface
 }
 
 export const HighscoreModel = mongoose.model('Highscore', highscoreSchema);
