@@ -17,8 +17,3 @@ export interface UserInterface {
 }
 
 export const UserModel = mongoose.model('User', userSchema);
-
-/**
- * Public user interface
- */
-export type PublicUser = Omit<UserInterface, "pass">;
