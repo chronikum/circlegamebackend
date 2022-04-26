@@ -45,7 +45,6 @@ export default class DatabaseManager {
 	 * Keeps you updated about the state of the database
 	 */
 	databaseReady = new Observable((subscriber) => {
-		// Try to connect and catch when fail
 		mongoose.connect(DatabaseManager.instance.path, {}).catch(
 			// eslint-disable-next-line no-return-assign
 			(error) => this.isReady = false,

@@ -29,8 +29,8 @@ export const userValidationSchema = object({
 		username: string().min(2).required(),
 		pass: string().min(2).required(),
 		elo: object().shape({
-			points: number().integer().positive().required(),
-			rank: number().integer().positive().required(),
+			points: number().integer().min(0).required(),
+			rank: number().integer().min(0).required(),
 		})
 	}),
 });

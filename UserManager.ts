@@ -44,7 +44,7 @@ export async function createNewUser(user: UserInterface) {
  * Returns true and false based on if the password is correct or not
  */
 export async function checkPasswordOfUser(user: string, password: string) {
-	const playerExists = await UserModel.findOne({ user: user })
+	const playerExists = await UserModel.findOne({ username: user })
 
 	if (!playerExists) {
 		return true
@@ -56,6 +56,7 @@ export async function checkPasswordOfUser(user: string, password: string) {
 			return false
 		}
 	} catch (err) {
+		console.log("Argon2 error: " + err)
 		return false
 	}
 }
