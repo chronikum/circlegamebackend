@@ -8,8 +8,14 @@ Set a new highscore for user: user
 POST /sethighscore
 
 {
-	"user": "user",
-	"highscore": "highscore"
+    "user" : {
+        "username": "Jonathan51",
+        "pass" : "password",
+        "elo": {
+            "points" : 15,
+            "rank" : 10
+        }
+    }
 }
 
 ```

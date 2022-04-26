@@ -4,16 +4,21 @@ import { EloInterface, EloModel, eloSchema } from './Elo.model';
 /**
  * Define highscore schema, highscore model and highscore interface
  */
-const highscoreSchema = new Schema({
-    user: String,
-	pin: String,
+const userSchema = new Schema({
+    username: String,
+	pass: String,
     elo: eloSchema,
 });
 
-export interface HighscoreInterface {
-	user: string,
-	pin: string,
+export interface UserInterface {
+	username: string,
+	pass: string,
 	elo: EloInterface
 }
 
-export const HighscoreModel = mongoose.model('Highscore', highscoreSchema);
+export const UserModel = mongoose.model('User', userSchema);
+
+/**
+ * Public user interface
+ */
+export type PublicUser = Omit<UserInterface, "pass">;
