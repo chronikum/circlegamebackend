@@ -6,7 +6,8 @@ import { UserInterface } from "../models/Highscore.model";
  * @returns cleaned user
  */
 function cleanUserObject(user: UserInterface) {
-	user.pass = ''
+	user.pass = undefined
+	user['_id'] = undefined
 	return user;
 }
 
