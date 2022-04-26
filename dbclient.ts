@@ -35,7 +35,7 @@ export default class DatabaseManager {
 	private loadPathForDatabase() {
 		const fallbackPath = 'mongodb://127.0.0.1:27017/database';
 		this.path = fallbackPath;
-		const readPath = process.env.DATABASE_PATH;
+		const readPath = process.env.DATABASE;
 		if (readPath) {
 			this.path = readPath;
 		}

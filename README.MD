@@ -13,7 +13,8 @@ POST /sethighscore
         "pass" : "password",
         "elo": {
             "points" : 15,
-            "rank" : 10
+            "rank" : 10,
+			"trend" : 10
         }
     }
 }
@@ -27,7 +28,11 @@ GET /highscore
 [
 	{
 		"user": "user",
-		"highscore": "highscore"
+		"elo": {
+            "points" : 15,
+            "rank" : 10,
+			"trend" : 10
+        }
 	}
 ]
 

@@ -80,6 +80,7 @@ export default class Server {
 		});
 		this.app.listen(this.port, this.host, () => {
 			console.log("Server listening on port " + this.port);
+			console.log(`Server running on: http://${this.host}:${this.port}`);
 		});
 	}
 
