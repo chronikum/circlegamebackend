@@ -1,5 +1,5 @@
 import { EloModel } from "../models/Elo.model";
-import { UserInterface, UserModel } from "../models/Highscore.model";
+import { UserInterface, UserModel, userValidationSchema, validateSchema } from "../models/Highscore.model";
 import { checkPasswordOfUser, createUserIfNotExistent } from "../UserManager";
 import { cleanUserArray } from "../utils/CleanUser.utils";
 
@@ -26,7 +26,7 @@ router.post('/login', async (req, res) => {
 /**
  * Sets a new highscore
  */
-router.post('/sethighscore', async (req, res) => {
+router.post('/sethighscore', validateSchema(userValidationSchema), async (req, res) => {
 	const { user } = req.body;
 	const findEloPlayer = await UserModel.findOne({ username: user.username })
 	// Creates user if not existent or checks the password of the user
