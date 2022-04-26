@@ -29,7 +29,7 @@ export async function createNewUser(user: UserInterface) {
 		const hashedValue = await argon2.hash(user.pass);
 		user.pass = hashedValue;
 		const createdUser = await UserModel.create(user);
-		console.log("Created user: " + user.pass);
+		return true
 	} catch (err) {
 		return false;
 	}

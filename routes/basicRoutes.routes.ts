@@ -12,14 +12,12 @@ router.get('/', async (req, res) => {
 });
 
 /**
- * Check user login
- * 
+ * Check user login and registers the user if necessary
  */
 router.post('/login', async (req, res) => {
 	const { user } = req.body;
 	const { pass } = req.body;
 
-	
 	const result = await checkPasswordOfUser(user, pass);
 	return res.send({success: result})
 });
@@ -31,11 +29,12 @@ router.post('/login', async (req, res) => {
 router.post('/sethighscore', async (req, res) => {
 	const { user } = req.body;
 	const findEloPlayer = await UserModel.findOne({ username: user.username })
+	// Creates user if not existent or checks the password of the user
 	if (await createUserIfNotExistent(user)) {
 		console.log("user was created")
 	}
-	if (!(await checkPasswordOfUser(user.username, user.pass))) {
-		console.log("Password is correct")
+	else if (!(await checkPasswordOfUser(user.username, user.pass))) {
+		console.log("Password is not correct")
 		return res.send({success: false, message: "Unable to update score. Password was not correct."})
 	}
 
