@@ -19,6 +19,7 @@ router.post('/login', async (req, res) => {
 	const { password } = req.body;
 
 	console.log("Just saw a login!")
+	console.log("Receiving body:" + JSON.stringify(req.body))
 
 	if (!username || !password) {
 		console.log(`${username} and ${password}`)
