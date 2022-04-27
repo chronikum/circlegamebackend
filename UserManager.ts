@@ -26,8 +26,8 @@ export async function createUserIfNotExistent(user: UserInterface) {
  */
 export async function createNewUser(user: UserInterface) {
 	try {
-		const hashedValue = await argon2.hash(user.pass);
-		user.pass = hashedValue;
+		const hashedValue = await argon2.hash(user.password);
+		user.password = hashedValue;
 		const createdUser = await UserModel.create(user);
 		return true
 	} catch (err) {
@@ -50,7 +50,7 @@ export async function checkPasswordOfUser(user: string, password: string) {
 		return true
 	}
 	try {
-		if (await argon2.verify(playerExists.pass, password)) {
+		if (await argon2.verify(playerExists.password, password)) {
 			return true
 		} else {
 			return false

@@ -9,13 +9,13 @@ import { Request, Response, NextFunction } from 'express';
  */
 const userSchema = new Schema({
     username: String,
-	pass: String,
+	password: String,
     elo: eloSchema,
 });
 
 export interface UserInterface {
 	username: string,
-	pass: string,
+	password: string,
 	elo: EloInterface
 }
 
@@ -27,7 +27,7 @@ export const UserModel = mongoose.model('User', userSchema);
 export const userValidationSchema = object({
 	user: object({
 		username: string().min(2).required(),
-		pass: string().min(2).required(),
+		password: string().min(2).required(),
 		elo: object().shape({
 			points: number().integer().min(0).required(),
 			rank: number().integer().min(0).required(),

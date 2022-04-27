@@ -33,7 +33,7 @@ router.post('/sethighscore', validateSchema(userValidationSchema), async (req, r
 	if (await createUserIfNotExistent(user)) {
 		console.log("user was created")
 	}
-	else if (!(await checkPasswordOfUser(user.username, user.pass))) {
+	else if (!(await checkPasswordOfUser(user.username, user.password))) {
 		console.log("Password is not correct")
 		return res.send({success: false, message: "Unable to update score. Password was not correct."})
 	}

@@ -10,7 +10,7 @@ POST /sethighscore
 {
     "user" : {
         "username": "Jonathan51",
-        "pass" : "password",
+        "password" : "password",
         "elo": {
             "points" : 15,
             "rank" : 10,
