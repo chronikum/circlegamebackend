@@ -1,5 +1,6 @@
 import { EloModel } from "../models/Elo.model";
 import { UserInterface, UserModel, userValidationSchema, validateSchema } from "../models/Highscore.model";
+import { HistoryModel } from "../models/History.model";
 import { addGameToUserHistory, checkPasswordOfUser, createUserIfNotExistent } from "../UserManager";
 import { cleanUserArray, cleanUserObject } from "../utils/CleanUser.utils";
 
@@ -82,6 +83,17 @@ router.post('/highscore', async (req, res) => {
 	return res.send( {success: true, highscores: cleanUserArray(getHighscores)} )
 });
 
+/**
+ * Returns all games of the user
+ */
+ router.post('/getUserHistory', async (req, res) => {
+	const username = { req.body };
+	if (username) {
+		const historyOfGames = await HistoryModel.findOne({ username: username })
+		return res.send( {success: true, games: historyOfGames} )
+	}
+	return res.send( {success: false} )
+});
 
 /**
  * 
