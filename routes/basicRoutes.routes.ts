@@ -1,7 +1,7 @@
 import { EloModel } from "../models/Elo.model";
 import { UserInterface, UserModel, userValidationSchema, validateSchema } from "../models/Highscore.model";
 import { checkPasswordOfUser, createUserIfNotExistent } from "../UserManager";
-import { cleanUserArray } from "../utils/CleanUser.utils";
+import { cleanUserArray, cleanUserObject } from "../utils/CleanUser.utils";
 
 const express = require('express');
 const router = express.Router();
@@ -31,7 +31,7 @@ router.post('/login', async (req, res) => {
 	const result = await checkPasswordOfUser(username, password);
 	if (result) {
 		const user = await UserModel.findOne({ username: username })
-		return res.send(user)	
+		return res.send(cleanUserObject(user))
 	}
 	return res.send({success: result})
 });
