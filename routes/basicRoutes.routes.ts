@@ -18,6 +18,8 @@ router.post('/login', async (req, res) => {
 	const { username } = req.body.user;
 	const { password } = req.body.user;
 
+	console.log("Just saw a login!")
+
 	if (!username || !password) {
 		console.log(`${username} and ${password}`)
 		return res.send({success: false, message: "I don't like this!"})	
