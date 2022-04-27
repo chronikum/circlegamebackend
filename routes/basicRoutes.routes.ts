@@ -87,7 +87,7 @@ router.post('/highscore', async (req, res) => {
  * Returns all games of the user
  */
  router.post('/getUserHistory', async (req, res) => {
-	const username = { req.body };
+	const { username } = req.body;
 	if (username) {
 		const historyOfGames = await HistoryModel.findOne({ username: username })
 		return res.send( {success: true, games: historyOfGames} )
