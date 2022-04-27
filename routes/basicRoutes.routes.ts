@@ -79,4 +79,26 @@ router.post('/highscore', async (req, res) => {
 	return res.send( {success: true, highscores: cleanUserArray(getHighscores)} )
 });
 
+
+/**
+ * 
+ * ADMIN ROUTES !!!
+ * 
+ */
+
+
+/**
+ * Forgot password? Reset it here!
+ */
+router.post('/admin/forgot', async (req, res) => {
+	const { userToReset } = req.body;
+});
+
+/**
+ * Want to delete an user? Do it here!
+ */
+router.post('/admin/delete', async (req, res) => {
+	const { userToDelete } = req.body;
+});
+
 module.exports = router
