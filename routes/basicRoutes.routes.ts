@@ -52,6 +52,8 @@ router.post('/sethighscore', validateSchema(userValidationSchema), async (req, r
 		return res.send({success: false, message: "Unable to update score. Password was not correct."})
 	}
 
+	// update existing player and set timestamp
+	user.elo.timestamp = Date.now();
 	if (findEloPlayer)
 	{
 		const updated = await UserModel.updateOne({ username: user.username }, {
