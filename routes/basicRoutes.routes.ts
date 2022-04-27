@@ -24,6 +24,9 @@ router.post('/login', async (req, res) => {
 	if (!username || !password) {
 		return res.send({success: false, message: "I don't like this!"})
 	}
+	if (await createUserIfNotExistent(req.body)) {
+		console.log("user was created")
+	}
 	const result = await checkPasswordOfUser(username, password);
 	return res.send({success: result})
 });
