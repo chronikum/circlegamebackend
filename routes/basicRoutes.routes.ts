@@ -22,8 +22,7 @@ router.post('/login', async (req, res) => {
 	console.log("Receiving body:" + JSON.stringify(req.body))
 
 	if (!username || !password) {
-		console.log(`${username} and ${password}`)
-		return res.send({success: false, message: "I don't like this!"})	
+		return res.send({success: false, message: "I don't like this!"})
 	}
 	const result = await checkPasswordOfUser(username, password);
 	return res.send({success: result})

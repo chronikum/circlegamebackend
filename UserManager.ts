@@ -51,8 +51,10 @@ export async function checkPasswordOfUser(user: string, password: string) {
 	}
 	try {
 		if (await argon2.verify(playerExists.password, password)) {
+			console.log("Password is correct!")
 			return true
 		} else {
+			console.log("Password is incorrect!")
 			return false
 		}
 	} catch (err) {
