@@ -9,12 +9,12 @@ import { Request, Response, NextFunction } from 'express';
  */
 const historySchema = new Schema({
     username: String,
-    elo: [eloSchema],
+    games: [eloSchema],
 });
 
 export interface HistoryInterface {
 	username: string,
-	elo: EloInterface[]
+	games: EloInterface[]
 }
 
-export const UserModel = mongoose.model('History', historySchema);
+export const HistoryModel = mongoose.model('History', historySchema);

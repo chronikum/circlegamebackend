@@ -1,6 +1,8 @@
 
 import { hash } from "argon2";
+import { EloInterface } from "./models/Elo.model";
 import { UserInterface, UserModel } from "./models/Highscore.model";
+import { HistoryModel } from "./models/History.model";
 
 const argon2 = require('argon2');
 
@@ -64,4 +66,15 @@ export async function checkPasswordOfUser(user: string, password: string) {
 		console.log("Argon2 error: " + err)
 		return false
 	}
+}
+
+/**
+ * Add game to the user history
+ */
+export async function addGameToUserHistory(user: UserInterface, game: EloInterface) {
+	await HistoryModel.updateOne(
+		{ username: user.username }, 
+		{ $push: { games: game } },
+	);
+	console.log('Added game to user history. User played total games')
 }

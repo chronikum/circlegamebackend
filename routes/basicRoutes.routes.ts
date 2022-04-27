@@ -1,6 +1,6 @@
 import { EloModel } from "../models/Elo.model";
 import { UserInterface, UserModel, userValidationSchema, validateSchema } from "../models/Highscore.model";
-import { checkPasswordOfUser, createUserIfNotExistent } from "../UserManager";
+import { addGameToUserHistory, checkPasswordOfUser, createUserIfNotExistent } from "../UserManager";
 import { cleanUserArray, cleanUserObject } from "../utils/CleanUser.utils";
 
 const express = require('express');
@@ -54,6 +54,7 @@ router.post('/sethighscore', validateSchema(userValidationSchema), async (req, r
 
 	// update existing player and set timestamp
 	user.elo.timestamp = Date.now();
+	addGameToUserHistory(user, user.elo),
 	if (findEloPlayer)
 	{
 		const updated = await UserModel.updateOne({ username: user.username }, {
