@@ -53,8 +53,8 @@ router.post('/sethighscore', validateSchema(userValidationSchema), async (req, r
 	}
 
 	// update existing player and set timestamp
-	user.elo.timestamp = Date.now();
-	addGameToUserHistory(user, user.elo),
+	user.elo.timestamp = Date.now()
+	addGameToUserHistory(user, user.elo)
 	if (findEloPlayer)
 	{
 		const updated = await UserModel.updateOne({ username: user.username }, {
