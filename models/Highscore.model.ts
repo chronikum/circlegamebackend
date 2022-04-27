@@ -25,14 +25,12 @@ export const UserModel = mongoose.model('User', userSchema);
  * This is the yup validation schema for user values
  */
 export const userValidationSchema = object({
-	user: object({
-		username: string().min(2).required(),
-		password: string().min(2).required(),
-		elo: object().shape({
-			points: number().integer().min(0).required(),
-			rank: number().integer().min(0).required(),
-		})
-	}),
+	username: string().min(2).required(),
+	password: string().min(2).required(),
+	elo: object().shape({
+		points: number().integer().min(0).required(),
+		rank: number().integer().min(0).required(),
+	})
 });
 
 /**

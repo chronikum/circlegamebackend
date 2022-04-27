@@ -15,8 +15,8 @@ router.get('/', async (req, res) => {
  * Check user login and registers the user if necessary
  */
 router.post('/login', async (req, res) => {
-	const { username } = req.body.user;
-	const { password } = req.body.user;
+	const { username } = req.body;
+	const { password } = req.body;
 
 	console.log("Just saw a login!")
 
@@ -33,7 +33,7 @@ router.post('/login', async (req, res) => {
  * Sets a new highscore
  */
 router.post('/sethighscore', validateSchema(userValidationSchema), async (req, res) => {
-	const { user } = req.body;
+	const user = req.body;
 	const findEloPlayer = await UserModel.findOne({ username: user.username })
 	// Creates user if not existent or checks the password of the user
 	if (await createUserIfNotExistent(user)) {
