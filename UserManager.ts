@@ -28,6 +28,9 @@ export async function createNewUser(user: UserInterface) {
 	try {
 		const hashedValue = await argon2.hash(user.password);
 		user.password = hashedValue;
+		user.elo.points = 0;
+		user.elo.rank = 0;
+		user.elo.trend = 0;
 		const createdUser = await UserModel.create(user);
 		return true
 	} catch (err) {
