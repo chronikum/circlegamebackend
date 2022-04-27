@@ -30,6 +30,7 @@ export const userValidationSchema = object({
 	elo: object().shape({
 		points: number().integer().min(0).required(),
 		rank: number().integer().min(0).required(),
+		trend: number().integer().min(-10).max(10).required(),
 	})
 });
 
