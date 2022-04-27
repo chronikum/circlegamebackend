@@ -12,7 +12,8 @@ router.get('/', async (req, res) => {
 });
 
 /**
- * Check user login and registers the user if necessary
+ * Check user login and registers the user if necessary.
+ * Returns the user object with the highscore
  */
 router.post('/login', async (req, res) => {
 	const { username } = req.body;
@@ -28,6 +29,10 @@ router.post('/login', async (req, res) => {
 		console.log("user was created")
 	}
 	const result = await checkPasswordOfUser(username, password);
+	if (result) {
+		const user = await UserModel.findOne({ username: username })
+		return res.send(user)	
+	}
 	return res.send({success: result})
 });
 
