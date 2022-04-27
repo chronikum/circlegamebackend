@@ -15,10 +15,13 @@ router.get('/', async (req, res) => {
  * Check user login and registers the user if necessary
  */
 router.post('/login', async (req, res) => {
-	const { user } = req.body;
-	const { pass } = req.body;
+	const { username } = req.body?.password;
+	const { password } = req.body?.user;
 
-	const result = await checkPasswordOfUser(user, pass);
+	if (!username || !password) {
+		return res.send({success: false, message: "I don't like this!"})	
+	}
+	const result = await checkPasswordOfUser(username, password);
 	return res.send({success: result})
 });
 
