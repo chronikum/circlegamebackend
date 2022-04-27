@@ -32,7 +32,6 @@ export default class Server {
 			contentSecurityPolicy: false,
 		  }));
 		this.app.use(bodyParser.json());
-		// Add headers before the routes are defined
 		this.app.use(function (req, res, next) {
 			res.setHeader('Access-Control-Allow-Origin', '*');
 			res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
